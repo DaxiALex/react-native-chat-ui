@@ -4,8 +4,8 @@ import Auth from './Auth';
 import Chat from './Chat';
 
 export default combineReducers({
-    authentication: Auth,
-    contact: Contact,
-    chat: Chat,
+  authentication: Auth,
+  contact: Contact,
+  chat: Chat,
 
 });

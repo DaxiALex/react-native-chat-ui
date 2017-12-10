@@ -1,14 +1,12 @@
-import React from 'react';
-import { Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import ChatsList from '../screens/ChatsList/ChatsList';
+import { ChatsList } from '../screens';
 
-import TabProfile from './TabProfile'
+import TabProfile from './TabProfile';
 
 
 const TabContact = StackNavigator({
-    ChatsList: { screen: ChatsList },
-    TabProfile: { screen: TabProfile },
-}, );
+  ChatsList: { screen: ChatsList },
+  TabProfile: { screen: TabProfile },
+});
 
 export default TabContact;

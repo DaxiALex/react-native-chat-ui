@@ -4,86 +4,71 @@ import {
     FECTH_MESSSAGE_SUCCESS,
 } from './types';
 
-import { chatRooms } from './mock-chats'
+import { chatRooms } from './mock-chats';
 
-export const findRoomByUser = (me, friend) => {
+export const findRoomByUser = (me, friend) => (dispatch) => {
+  const roomKey = friend.uid;
 
-    return (dispatch) => {
-
-        let roomKey = friend.uid;
-
-        let rooms = chatRooms;
+  const rooms = chatRooms;
         
-        let currentRoom = null;
-        for (key in rooms) {
-           if(rooms[key].id ==roomKey){
-            currentRoom = rooms[key];
-           }
-          }
+  let currentRoom = null;
+  
+  for (const key in rooms) {
+    if (rooms[key].id === roomKey) {
+      currentRoom = rooms[key];
+    }
+  }
 
+  if (currentRoom != null) {
+    dispatch({
+      type: FETCH_ROOM_SUCCESS,
+      roomKey,
+    });
 
-        if (currentRoom != null) {
-            dispatch({
-                type: FETCH_ROOM_SUCCESS,
-                roomKey
-            });
-
-            fetchMessagesByRoom(dispatch, currentRoom);
-
-            } else {
-                dispatch({
-                    type: FETCH_ROOM_ERROR
-                })
-            }
-        };
-    };
-
-
-const fetchMessagesByRoom = (dispatch, room) => {
-
-        const messages = room.messages;
-
-        messages.sort((a, b) => {
-            return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-        });
-
-        dispatch({
-            type: FECTH_MESSSAGE_SUCCESS,
-            messages
-        });
+    fetchMessagesByRoom(dispatch, currentRoom);
+  } else {
+    dispatch({
+      type: FETCH_ROOM_ERROR,
+    });
+  }
 };
 
-export const sendMessage = (me,friend, text, roomKey) => {
+const fetchMessagesByRoom = (dispatch, room) => {
+  const messages = room.messages;
 
-    return (dispatch) => {
+  messages.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 
-        let rooms = chatRooms;
-        let currentRoom = null;
+  dispatch({
+    type: FECTH_MESSSAGE_SUCCESS,
+    messages,
+  });
+};
 
-        for (key in rooms) {
+export const sendMessage = (me, friend, text, roomKey) => (dispatch) => {
+  const rooms = chatRooms;
+  let currentRoom = null;
 
-            if (rooms[key].id == roomKey) {
-                currentRoom = rooms[key];
-            }
-        }
-        if (currentRoom != null) {
-
-            currentRoom.messages.push({
-                text,
-                user: {
-                    _id: me.uid,
-                    name: me.displayName,
-                    avatar: me.photoURL
-                },
-                createdAt: Date.now()
-            });
+  for (const key in rooms) {
+    if (rooms[key].id === roomKey) {
+      currentRoom = rooms[key];
+    }
+  }
+  if (currentRoom != null) {
+    currentRoom.messages.push({
+      text,
+      user: {
+        _id: me.uid,
+        name: me.displayName,
+        avatar: me.photoURL,
+      },
+      createdAt: Date.now(),
+    });
 
             
-            dispatch({
-                type: FECTH_MESSSAGE_SUCCESS,
-                messages: text
-            });
-        };
-    };
-}
+    dispatch({
+      type: FECTH_MESSSAGE_SUCCESS,
+      messages: text,
+    });
+  }
+};
 

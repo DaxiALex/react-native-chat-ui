@@ -1,12 +1,10 @@
-import React from 'react';
-import { Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Profile from '../screens/Profile/Profile';
-import Conversation from '../screens/Conversation/Conversation';
+import { Profile, Conversation } from '../screens';
+
 
 const TabProfile = StackNavigator({
-    Conversation: { screen: Conversation },
-    Profile: { screen: Profile },
+  Conversation: { screen: Conversation },
+  Profile: { screen: Profile },
 }, { headerMode: 'none' });
 
 export default TabProfile;

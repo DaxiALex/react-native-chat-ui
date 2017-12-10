@@ -1,7 +1,11 @@
 import LoginScreen from './LoginScreen/LoginScreen';
-// import ChatList from './ChatList/ChatList';
+import ChatsList from './ChatsList/ChatsList';
+import Conversation from './Conversation/Conversation';
+import Profile from './Profile/Profile';
 
 export {
   LoginScreen,
-  // ChatList,
+  ChatsList,
+  Conversation,
+  Profile,
 };

@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   textInput: {
+    width: 250,
     backgroundColor: colors.white,
     borderRadius: 10,
     borderWidth: 1,

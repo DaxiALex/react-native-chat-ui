@@ -57,8 +57,8 @@ class ChatsList extends Component {
   }
   renderRow = (item) => (
     <TouchableOpacity
-      onPress={this.onRowPressed(item)}
-      onLongPress={this.onLongPressRow(item)}
+      onPress={this.onRowPressed.bind(this, item)}
+      onLongPress={this.onLongPressRow.bind(this, item)}
       style={s.row}
     >
       <Image source={{ uri: item.photoURL }} style={s.avatar} />
@@ -110,6 +110,7 @@ class ChatsList extends Component {
           />
         </View>
       </View>
+      
 
     );
   }
